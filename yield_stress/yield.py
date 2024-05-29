@@ -1,35 +1,24 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load the data
-data = pd.read_csv('vesicle_data.csv')
+# Hypothetical data
+shear_rates = np.linspace(0.1, 100, 50)  # range of shear rates in s^-1
+vesicle_radius = 1e-6  # characteristic length scale in meters
+diffusion_coefficient = 1e-12  # diffusion coefficient in m^2/s
 
-# Parameters
-num_particles = 18
-time_steps = data['time_step'].nunique()
+# Calculate Péclet number
+peclet_numbers = (shear_rates * vesicle_radius**2) / diffusion_coefficient
 
-# Reshape data into 3D array: (time_steps, num_particles, 3)
-positions = data[['x', 'y', 'z']].values.reshape(time_steps, num_particles, 3)
+# Hypothetical yield stress data corresponding to each shear rate
+yield_stress = 0.1 * np.log(peclet_numbers + 1)  # example function
 
-# Calculate strain rate
-strain_rate = []
-for t in range(1, time_steps):
-    displacement = positions[t] - positions[t-1]
-    displacement_magnitude = np.linalg.norm(displacement, axis=1)
-    avg_displacement = np.mean(displacement_magnitude)
-    strain_rate.append(avg_displacement)
-
-# Apply hypothetical stresses for demonstration
-stresses = np.linspace(0.1, 10, len(strain_rate))
-
-# Plot Stress vs. Strain Rate
-plt.plot(stresses, strain_rate, marker='o')
-plt.xlabel('Shear Stress')
-plt.ylabel('Strain Rate')
-plt.title('Stress vs. Strain Rate')
+# Plot yield stress vs. Péclet number
+plt.figure(figsize=(8, 6))
+plt.plot(peclet_numbers, yield_stress, marker='o', linestyle='-')
+plt.xlabel('Péclet Number (Pe)')
+plt.ylabel('Yield Stress (Pa)')
+plt.title('Yield Stress as a Function of Péclet Number')
+plt.xscale('log')
+plt.yscale('log')
+plt.grid(True)
 plt.show()
-
-# Identify yield stress as the point where strain rate begins to increase significantly
-yield_stress = stresses[np.argmax(np.gradient(strain_rate))]
-print(f'Yield Stress: {yield_stress} Pa')
