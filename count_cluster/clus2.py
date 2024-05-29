@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 data = pd.read_csv('xyz.dat', delim_whitespace=True, names=["time_step", "particle_id", "x", "y", "z"])
 
 # Parameters
-num_particles = 26  # Number of particles in a vesicle
-max_time_step = 50000  # Number of time steps in the simulation
+num_particles = 18  # Number of particles in a vesicle
+max_time_step = 1000  # Number of time steps in the simulation
 eps = 0.1  # Maximum distance between two samples for one to be considered as in the neighborhood of the other
 min_samples = 2  # The number of samples (or total weight) in a neighborhood for a point to be considered as a core point
 
@@ -22,8 +22,8 @@ for t in range(1, max_time_step + 1):
     
     # Check if the number of particles at the current time step matches the expected number
     if len(time_step_data) != num_particles:
-        print(f"Warning: Missing data for time step {t}. Expected {num_particles} particles, got {len(time_step_data)}.")
-        num_clusters.append(np.nan)  # Append NaN for missing data
+        print(f"Warning: Missing or extra data for time step {t}. Expected {num_particles} particles, got {len(time_step_data)}.")
+        num_clusters.append(np.nan)  # Append NaN for inconsistent data
         continue
 
     # Perform DBSCAN clustering
