@@ -1,0 +1,77 @@
+
+
+
+        plt.tick_params(axis="both", which="both", top=True, labeltop=False, bottom=True, labelbottom=True, 
+                        left=True, labelleft=True, right=True, labelright=False, direction="in", length=4, width=1)
+
+
+ # ACS-approved color palette
+colors = [
+    '#006BA4', '#FF800E', '#ABABAB', '#595959', '#5F9ED1',
+    '#C85200', '#898989', '#A2C8EC', '#FFBC79', '#CFCFCF'
+]
+
+# Line and marker styles
+line_styles = ['-', '--', ':', '-.']
+markers = ['o', 's', '^', 'D', 'v', 'p', 'h', '*', 'x', '+']
+label = ['Calculated data', 'logistic corrected']
+
+
+#set_langmuir_style()
+fig, axs = plt.subplots(2, 2, figsize=(7, 7), sharex=True, sharey=True)
+
+# Plot data
+axs[0, 0].plot(x, all_y[0][0],color=colors[0], linestyle=line_styles[0 % len(line_styles)], 
+               marker=markers[0], markevery=2, markersize=5, linewidth=1.50, alpha=0.8, label=label[0])
+axs[0, 0].errorbar(x[::2], all_y[0][0][::2], all_yerr[0][::2], linestyle='', capsize=1.5,
+        color=colors[0], markevery=2, markersize=5, linewidth=1.50, alpha=0.8)
+axs[0, 0].plot(x, all_y[0][1],color=colors[1], linestyle=line_styles[1 % len(line_styles)], 
+               marker=markers[1], markevery=2, markersize=5, linewidth=1.50, alpha=0.8, label=label[1])
+
+
+axs[0, 1].plot(x, all_y[1][0],color=colors[0], linestyle=line_styles[0 % len(line_styles)], 
+               marker=markers[0], markevery=2, markersize=5, linewidth=1.50, alpha=0.8, label=label[0])
+axs[0, 1].errorbar(x[::2], all_y[1][0][::2], all_yerr[1][::2], linestyle='', capsize=1.5,
+        color=colors[0], markevery=2, markersize=5, linewidth=1.50, alpha=0.8)
+axs[0, 1].plot(x, all_y[1][1],color=colors[1], linestyle=line_styles[1 % len(line_styles)], 
+               marker=markers[1], markevery=2, markersize=5, linewidth=1.50, alpha=0.8, label=label[1])
+
+
+
+
+
+
+ax.set_xscale('log')
+#ax.set_yscale('log')
+
+ax.set_xlim(0,20000)
+ax.set_ylim(0,30)
+
+ax.grid(False)
+axs[0, 0].tick_params(which='both', direction='in')
+axs[0, 1].tick_params(which='both', direction='in')
+axs[1, 0].tick_params(which='both', direction='in')
+axs[1, 1].tick_params(which='both', direction='in')
+
+# Set x and y labels only for bottom and left subplots
+axs[1, 0].set_xlabel(r"t$\mathrm{/\tau_D}$", labelpad=1)  # Only bottom-left
+axs[1, 1].set_xlabel(r"t$\mathrm{/\tau_D}$", labelpad=1)  # Only bottom-right (if needed)
+axs[0, 0].set_ylabel(r"Number of cluster (N$_\mathrm{C}$)", labelpad=1)  # Only top-left
+axs[1, 0].set_ylabel(r"Number of cluster (N$_\mathrm{C}$)", labelpad=1)  # Only bottom-left
+
+# Add legend only to first subplot
+leg = axs[0,0].legend(ncol=1, frameon=True, framealpha=1,
+              edgecolor='black', fancybox=False, loc='center left')
+leg.get_frame().set_linewidth(0.5)
+
+sub_labels = ['(a)', '(b)', '(c)', '(d)']
+axes = axs.flatten()
+# Add content and labels to each subplot
+for ax, sub_labels in zip(axes, sub_labels):
+    # Add label in top-left corner (inside axes)
+    ax.text(0.05, 0.15, sub_labels, transform=ax.transAxes,
+            fontsize=12, fontweight='bold', va='top')
+    
+
+
+
