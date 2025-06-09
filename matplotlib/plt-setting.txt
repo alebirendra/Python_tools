@@ -75,3 +75,30 @@ for ax, sub_labels in zip(axes, sub_labels):
 
 
 
+
+
+
+
+#     plt.tick_params(axis="both", which="both", top=True, labeltop=False, bottom=True, labelbottom=True, 
+#                     left=True, labelleft=True, right=True, labelright=False, direction="in", length=4, width=1,)
+    
+
+
+#     plt.legend(["$N=16, \epsilon/KT$=15", "N=18, $\epsilon/KT$=15", "N=20, $\epsilon/KT$=15","$N=22, \epsilon/KT$=15", 
+#                "$N=24, \epsilon/KT$=15", "N=26, $\epsilon/KT$=15", "N=28, $\epsilon/KT$=15",
+#                "$N=30, \epsilon/KT$=15",],  loc='center left') 
+#     #plt.grid(True)
+#     # plt.savefig("./fig/allve15NC%s.png" %pe, 
+#     #             bbox_inches ="tight", 
+#     #             pad_inches = 0.1, 
+#     #             transparent = True, 
+#     #             facecolor ="w", 
+#     #             edgecolor ='b', 
+#     #             orientation ='landscape', dpi=400 ) 
+    
+    
+#     #plt.xlim(0,1200)
+
+
+
+
